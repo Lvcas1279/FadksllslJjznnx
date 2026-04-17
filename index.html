@@ -2521,20 +2521,20 @@ initPickerDrag(‘weightPickerModal’,‘weightPickerOverlay’,closeWeightPick
 initPickerDrag(‘repsPickerModal’,‘repsPickerOverlay’,closeRepsPicker);
 },100);
 
-document.fonts.ready.then(()=>{
-setTimeout(()=>{
-const s=document.getElementById(‘splash’);if(!s)return;
-s.style.opacity=‘0’;
-setTimeout(()=>{
-s.remove();
-const consented=localStorage.getItem(‘ss_consent’);
-if(!consented){showConsent();}
-else if(workoutPlan.length===0){showOnboarding();}
-else{showDayPicker();setTimeout(showPillNav,180);}
-},450);
-},900);
-});
-
+function initApp(){
+  const s=document.getElementById('splash');if(!s)return;
+  s.style.opacity='0';
+  setTimeout(()=>{
+    s.remove();
+    const consented=localStorage.getItem('ss_consent');
+    if(!consented){showConsent();}
+    else if(workoutPlan.length===0){showOnboarding();}
+    else{showDayPicker();setTimeout(showPillNav,180);}
+  },450);
+}
+const _fontTimeout=setTimeout(initApp,1500);
+document.fonts.ready.then(()=>{clearTimeout(_fontTimeout);setTimeout(initApp,600);}).catch(()=>{clearTimeout(_fontTimeout);initApp();});
+  
 </script>
 </body>
 </html>
